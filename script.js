@@ -17,13 +17,12 @@ async function getChefBirthday(id) {
     }
     const user = await userResponse.json();
 
-    return user.birthDate;
+    return dayjs(user.birthDate).format('DD/MM/YYYY');
   } catch (error) {
     console.error('Errore:', error.message);
     throw error;
   }
 }
-
 getChefBirthday(1)
   .then((birthday) => console.log('Data di nascita dello chef:', birthday))
   .catch((error) => console.error('Errore:', error.message));
