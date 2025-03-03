@@ -5,7 +5,12 @@ async function getChefBirthday(id) {
       throw new Error('Ricetta non trovata');
     }
     const recipe = await recipeResponse.json();
+
     const userId = recipe.userId;
+    if (!userId) {
+      throw new Error('ID utente non valido');
+    }
+
     const userResponse = await fetch(`https://dummyjson.com/users/${userId}`);
     if (!userResponse.ok) {
       throw new Error('Utente non trovato');
@@ -18,6 +23,7 @@ async function getChefBirthday(id) {
     throw error;
   }
 }
+
 getChefBirthday(1)
   .then((birthday) => console.log('Data di nascita dello chef:', birthday))
   .catch((error) => console.error('Errore:', error.message));
